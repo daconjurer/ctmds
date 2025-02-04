@@ -1,5 +1,5 @@
-from datetime import datetime
 from argparse import ArgumentParser
+from datetime import datetime
 
 from ctmds.random_generators.decimal_iterator import generate_random_decimals_iterator
 from ctmds.random_generators.numpy_generator import generate_random_decimals_numpy
