@@ -11,7 +11,7 @@ poetry install
 Then run:
 
 ```
-poetry run python3 ctmds/main.py --num <num-of-elements>
+poetry run python3 generator.py <num-of-elements>
 ```
 
 where `num-of-elements` is the number of elements to generate (e.g. 100000).
