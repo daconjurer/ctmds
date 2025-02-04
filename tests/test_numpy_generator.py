@@ -1,4 +1,5 @@
 import numpy as np
+
 from ctmds.random_generators.numpy_generator import generate_random_decimals_numpy
 
 
