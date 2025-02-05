@@ -1,6 +1,7 @@
-Simple script to generate random decimal numbers in the `[0, 100)` range.
-At the minute there is a basic iterator function and a function that uses
-Numpy.
+CTMDS
+======
+
+A simple Typer-based CLI for price stuff.
 
 The package uses [Poetry](https://python-poetry.org/). To install it, run:
 
@@ -8,16 +9,37 @@ The package uses [Poetry](https://python-poetry.org/). To install it, run:
 poetry install
 ```
 
-Then run:
+## Commands
+
+To generate random decimals that represent prices:
 
 ```
-poetry run python3 generator.py <num-of-elements>
+poetry run python3 generator.py random-prices <num-of-elements>
 ```
 
 where `num-of-elements` is the number of elements to generate (e.g. 100000).
 
-To run the tests:
+To generate a list of date-price pairs for a given day and a given country:
 
 ```
-poetry run pytest tests --full-trace
+poetry run python3 generator.py daily-prices <date> <country-code>
 ```
+
+Where date is in the **YYYY-MM-DD** format and the available country codes are:
+**GB**, **FR**, **NL**, **DE**.
+
+The `--granularity` flag is optional and can be either h (hourly) or hh (half-hourly).
+
+## Dev tools
+
+You can run the linting, formatting, tests and static analysis with `make`:
+
+```
+make lint
+make format
+make pyright
+make test
+make coverage
+```
+
+> Note: you can run all checks with `make check`
