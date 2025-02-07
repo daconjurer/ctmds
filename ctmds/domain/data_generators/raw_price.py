@@ -1,4 +1,17 @@
+import random
+from decimal import Decimal
+from typing import Iterator
+
 import numpy as np
+
+
+def random_iterator() -> Iterator[Decimal]:
+    yield Decimal(random.randrange(0, 9999)) / 100
+
+
+def random_generator(num: int) -> np.ndarray:
+    nums = np.random.randint(0, 9999, size=(num, 1)) / 100
+    return nums
 
 
 def normal_distribution_generator(

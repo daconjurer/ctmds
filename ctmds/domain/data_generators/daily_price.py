@@ -1,9 +1,20 @@
 from datetime import datetime
-from typing import Callable
+from typing import Callable, Sequence
+
+from pydantic import BaseModel
 
 from ctmds.domain import exceptions
 from ctmds.domain.constants import COUNTRY_BASE_PRICES, Granularity
-from ctmds.domain.price_generators import normal_distribution_generator
+from ctmds.domain.data_generators.raw_price import normal_distribution_generator
+
+
+class DailyPrice(BaseModel):
+    price: float
+    timestamp: str
+
+
+class DailyPricesCollection(BaseModel):
+    prices: Sequence[DailyPrice]
 
 
 def format_time(
@@ -16,13 +27,13 @@ def format_time(
     return f"{granular_hour:02d}{granular_minute:02d}"
 
 
-def generate_daily_prices_with_timestamps(
-    for_date: datetime,
+def daily_prices_with_timestamps(
+    date: datetime,
     country_code: str,
     granularity: Granularity = Granularity.HOURLY,
     seed: int | None = None,
     daily_prices_generator: Callable = normal_distribution_generator,
-):
+) -> DailyPricesCollection:
     """Generate random daily prices for a specific country and date"""
     prices_with_timestamps = []
 
@@ -38,12 +49,6 @@ def generate_daily_prices_with_timestamps(
 
     for i, price in enumerate(prices):
         time_str = format_time(i, granularity)
-        prices_with_timestamps.append((time_str, price))
+        prices_with_timestamps.append(DailyPrice(price=price, timestamp=time_str))
 
-    # Print results
-    print(f"Daily prices for {country_code} on {for_date}")
-    print(f"Base price: £{COUNTRY_BASE_PRICES[country_code]:.2f}/MWh")
-    print("-" * 30)
-
-    for timestamp, price in prices_with_timestamps:
-        print(f"{timestamp}: £{price:.2f}")
+    return DailyPricesCollection(prices=prices_with_timestamps)
