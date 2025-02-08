@@ -8,6 +8,7 @@ authors = ["Victor Sandoval <vs.software.eng@gmail.com>"]
 python = "~3.11"
 numpy = "^2.2.2"
 pydantic = "^2.10.6"
+pytz = "^2025.1"
 
 
 [tool.poetry.group.dev.dependencies]
