@@ -12,7 +12,9 @@ class GenericCommodity(CommodityInterface):
     """Implementation of CommodityInterface for generic commodity."""
 
     BASE_PRICES: Dict[CountryCodes, float]
-    prices_generator: Callable
+
+    def __init__(self, prices_generator: Callable):
+        self.prices_generator = prices_generator
 
     def get_daily_prices(
         self,
