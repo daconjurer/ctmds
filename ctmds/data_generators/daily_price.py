@@ -53,7 +53,9 @@ def daily_prices_with_timestamps(
     num_hours = day_hours
     periods = num_hours * 2 if granularity == Granularity.HALF_HOURLY else num_hours
 
-    prices = daily_prices_generator(base_price=base_price, periods=periods, seed=seed)
+    prices = daily_prices_generator(
+        base_price=base_price, date=date, periods=periods, seed=seed
+    )
 
     prices_with_timestamps = []
     for i, price in enumerate(prices):
