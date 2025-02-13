@@ -1,5 +1,6 @@
 from typing import Dict
 
+from ctmds.data_generators.power_price import power_price_generator
 from ctmds.domain.commodity.generic import GenericCommodity
 from ctmds.domain.constants import CountryCodes
 
@@ -13,3 +14,6 @@ class Power(GenericCommodity):
         CountryCodes.NL: 130.58,  # EUR/MWh
         CountryCodes.DE: 130.58,  # EUR/MWh
     }
+
+    def __init__(self):
+        super().__init__(prices_generator=power_price_generator)
