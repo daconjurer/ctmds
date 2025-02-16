@@ -1,8 +1,8 @@
 from typing import Dict
 
 from ctmds.data_generators.gas_price import gas_price_generator
-from ctmds.domain.commodity.generic import GenericCommodity
 from ctmds.domain.constants import CountryCodes
+from ctmds.domain.models.commodity.generic import GenericCommodity
 
 
 class NaturalGas(GenericCommodity):

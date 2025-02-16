@@ -3,8 +3,8 @@ from typing import Callable, Dict, List, Optional
 
 from ctmds.data_generators.daily_price import daily_prices_with_timestamps
 from ctmds.domain import exceptions
-from ctmds.domain.commodity.interface import CommodityInterface
 from ctmds.domain.constants import CountryCodes, Granularity
+from ctmds.domain.models.commodity.interface import CommodityInterface
 from ctmds.domain.models.price import PriceCollection
 
 

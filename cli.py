@@ -6,7 +6,7 @@ from ctmds.data_generators.raw_price import random_generator
 from ctmds.data_generators.oil_price import oil_price_generator
 from ctmds.domain import exceptions
 from ctmds.domain.commodities.commodities_map import CommodityMap
-from ctmds.domain.commodity.generic import GenericCommodity
+from ctmds.domain.models.commodity.generic import GenericCommodity
 
 app = typer.Typer()
 

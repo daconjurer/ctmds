@@ -3,8 +3,8 @@ from typing import Type
 from ctmds.domain.commodities.crude import CrudeOil
 from ctmds.domain.commodities.natural_gas import NaturalGas
 from ctmds.domain.commodities.power import Power
-from ctmds.domain.commodity.interface import CommodityInterface
 from ctmds.domain.constants import SupportedCommodities
+from ctmds.domain.models.commodity.interface import CommodityInterface
 
 
 class CommodityMap:
