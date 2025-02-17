@@ -1,19 +1,23 @@
-from typing import Generator
+from typing import Iterator, Protocol
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+from sqlalchemy.orm import Session, sessionmaker
+
+from ctmds.core.db.base import Base
 
 
-class Base(DeclarativeBase):
-    """Base class for SQLAlchemy models."""
+class SessionStream(Protocol):
+    """Protocol for a session stream."""
 
-    pass
+    def __call__(
+        self,
+    ) -> Iterator[Session]: ...
 
 
 # Create SQLite engine
 engine = create_engine(
     "sqlite:///ctmds.db",
-    echo=True,  # Set to False in production
+    echo=False,
 )
 
 # Create sessionmaker
@@ -24,7 +28,7 @@ SessionLocal = sessionmaker(
 )
 
 
-def get_db() -> Generator[Session, None, None]:
+def get_session() -> Iterator[Session]:
     """Get database session."""
     db = SessionLocal()
     try:

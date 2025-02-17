@@ -1,51 +1,60 @@
-from datetime import datetime
-from typing import Callable, Dict, List, Optional
+from typing import cast
 
-from ctmds.data_generators.daily_price import daily_prices_with_timestamps
+from ctmds.core.data_access.reader import GenericReader
+from ctmds.core.db.session import SessionStream, get_session
+from ctmds.core.utils.filter_sort import BaseFilterParams
 from ctmds.domain import exceptions
-from ctmds.domain.constants import CountryCodes, Granularity
+from ctmds.domain.constants import CountryCodes
+from ctmds.domain.entities import CommodityConfig
 from ctmds.domain.models.commodity.interface import CommodityInterface
-from ctmds.domain.models.price import PriceCollection
+
+
+class GenericCommodityFilterParams(BaseFilterParams):
+    country_code: CountryCodes
 
 
 class GenericCommodity(CommodityInterface):
     """Implementation of CommodityInterface for generic commodity."""
 
-    BASE_PRICES: Dict[CountryCodes, float]
+    reader: GenericReader[CommodityConfig]
 
-    def __init__(self, prices_generator: Callable):
-        self.prices_generator = prices_generator
+    def __init__(self):
+        self.session_stream: SessionStream = get_session
 
-    def get_daily_prices(
+    def get_base_price(
         self,
-        date: datetime,
         country_code: CountryCodes,
-        granularity: Granularity,
-        seed: Optional[int] = None,
-    ) -> PriceCollection:
-        """Get daily generic commodity prices."""
-        self.validate_country_code(country_code)
-        return daily_prices_with_timestamps(
-            base_price=self.get_base_price(country_code),
-            date=date,
-            granularity=granularity,
-            country_code=country_code,
-            seed=seed,
-            daily_prices_generator=self.prices_generator,
+    ) -> float:
+        """Get base price for generic commodity in a country, if valid."""
+
+        valid_country_code = self.reader.get_by(
+            db=next(self.session_stream()),
+            filter=GenericCommodityFilterParams(country_code=country_code),
         )
 
-    def get_base_price(self, country_code: CountryCodes) -> float:
-        """Get base price for generic commodity in a country."""
-        self.validate_country_code(country_code)
-        return self.BASE_PRICES[country_code]
-
-    def get_supported_countries(self) -> List[CountryCodes]:
-        """Get list of supported country codes."""
-        return list(self.BASE_PRICES.keys())
-
-    def validate_country_code(self, country_code: CountryCodes) -> None:
-        """Validate if a country code is supported."""
-        if country_code not in self.BASE_PRICES:
+        if not valid_country_code:
             raise exceptions.IncorrectCountryCodeError(
                 f"Country code must be one of: {', '.join(self.get_supported_countries())}"
             )
+
+        base_price = cast(float, valid_country_code.base_price)
+        return base_price
+
+    def get_supported_countries(self) -> list[CountryCodes]:
+        """Get list of supported country codes."""
+        result = []
+        page = 1
+        limit = 10
+        batch_length = 10
+
+        while batch_length == limit:
+            batch_result = self.reader.get_many(
+                db=next(self.session_stream()),
+                page=page,
+                limit=limit,
+            )
+            result.extend(batch_result)
+            batch_length = len(batch_result)
+            page += 1
+
+        return [commodity_config.country_code for commodity_config in result]

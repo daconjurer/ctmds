@@ -1,32 +1,18 @@
-from datetime import datetime
-from typing import Optional, Protocol
+from typing import Protocol
 
-from ctmds.domain.constants import CountryCodes, Granularity
-from ctmds.domain.models.price import PriceCollection
+from ctmds.domain.constants import CountryCodes
 
 
 class CommodityInterface(Protocol):
     """Protocol defining the interface for commodities."""
 
-    def get_daily_prices(
+    def get_base_price(
         self,
-        date: datetime,
         country_code: CountryCodes,
-        granularity: Granularity,
-        seed: Optional[int] = None,
-    ) -> PriceCollection:
-        """
-        Get daily prices for the commodity.
+    ) -> float:
+        """Get base price for the commodity in a country."""
+        ...
 
-        Args:
-            date: The date to get prices for
-            country_code: The country code (e.g., 'GB', 'FR')
-            seed: Optional random seed for reproducibility
-
-        Returns:
-            Collection of daily prices with timestamps
-
-        Raises:
-            IncorrectCountryCodeError: If country_code is not supported
-        """
+    def get_supported_countries(self) -> list[CountryCodes]:
+        """Get list of supported country codes."""
         ...

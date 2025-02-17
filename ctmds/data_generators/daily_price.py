@@ -4,9 +4,9 @@ from typing import Callable
 from pytz import country_timezones
 
 from ctmds.data_generators.raw_price import normal_distribution_generator
+from ctmds.data_generators.utils.date import TimezoneAwareDate
 from ctmds.domain.constants import CountryCodes, Granularity
 from ctmds.domain.models.price import Price, PriceCollection
-from ctmds.utils.date import TimezoneAwareDate
 
 
 def format_time(

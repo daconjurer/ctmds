@@ -1,6 +1,6 @@
 from datetime import UTC, datetime
 
-from ctmds.core.db.session import get_db, init_db, teardown_db
+from ctmds.core.db.session import get_session, init_db, teardown_db
 from ctmds.domain.entities import (
     CrudeOilConfig,
     ElectricityConfig,
@@ -13,7 +13,7 @@ teardown_db()
 init_db()
 
 # Add commodities configs
-with next(get_db()) as db:
+with next(get_session()) as db:
     config_gb = CrudeOilConfig(currency="GBP", base_price=57.37, country_code="GB")
     config_de = CrudeOilConfig(currency="EUR", base_price=69.03, country_code="DE")
     config_nl = CrudeOilConfig(currency="EUR", base_price=69.03, country_code="NL")
@@ -39,13 +39,13 @@ with next(get_db()) as db:
     db.commit()
 
 # Add exchange rates
-with next(get_db()) as db:
+with next(get_session()) as db:
     rate_gbp_eur = ExchangeRate(
         from_currency="GBP",
         to_currency="EUR",
         rate=1.19,
         effective_date=datetime.now(UTC),
     )
-    
+
     db.add(rate_gbp_eur)
     db.commit()
