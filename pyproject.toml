@@ -9,6 +9,9 @@ python = "~3.12"
 numpy = "^2.2.2"
 pydantic = "^2.10.6"
 pytz = "^2025.1"
+sqlalchemy = "^2.0.38"
+aiosqlite = "^0.21.0"
+loguru = "^0.7.3"
 
 
 [tool.poetry.group.dev.dependencies]
