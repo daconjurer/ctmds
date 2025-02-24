@@ -1,7 +1,11 @@
 __pycache__/
+.venv/
 .env
 db/dev/
 TODO.md
 .vscode/
 .coverage
 .DS_Store
+.pytest_cache/
+.python-version
+*.db
