@@ -1,8 +1,8 @@
 from datetime import datetime
 from typing import List, Protocol
 
+from ctmds.domain.commodity_price.models.price import PriceCollection
 from ctmds.domain.constants import CountryCodes, Granularity
-from ctmds.domain.models.price import PriceCollection
 
 
 class DailyPricesGeneratorInterface(Protocol):

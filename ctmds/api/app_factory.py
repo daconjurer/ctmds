@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from ctmds import __version__
+from ctmds.api.v1.controllers.data import router as data_router
 from ctmds.api.v1.controllers.status import router as status_router
 from ctmds.settings.application import get_app_settings
 
@@ -32,3 +33,4 @@ def register_cors(app: FastAPI) -> None:
 
 def register_routers(app: FastAPI) -> None:
     app.include_router(status_router)
+    app.include_router(data_router)

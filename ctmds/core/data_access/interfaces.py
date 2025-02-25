@@ -1,5 +1,6 @@
 from typing import Protocol, TypeVar
 
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from ctmds.core.utils.filter_sort import BaseFilterParams
@@ -17,3 +18,6 @@ class IRead(Protocol[Entity]):
     ) -> Entity | None:
         """Get an entity using a key-value filter."""
         ...
+
+
+class Schema(BaseModel): ...
