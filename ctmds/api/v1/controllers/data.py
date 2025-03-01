@@ -25,16 +25,16 @@ async def get_exchange_rate(
         sort=SortParams(sort_by="effective_date", sort_order="desc"),
     )
 
-    if result:
-        rate = cast(float, result.rate)
-        return ExchangeRatePublic(
-            from_currency=result.from_currency,
-            to_currency=result.to_currency,
+    if not result:
+        raise HTTPException(status_code=404, detail="Exchange rate not found")
+
+    rate = cast(float, result.rate)
+    return ExchangeRatePublic(
+        from_currency=result.from_currency,
+                to_currency=result.to_currency,
             rate=rate,
             effective_date=result.effective_date,
-        )
-
-    raise HTTPException(status_code=404, detail="Exchange rate not found")
+    )
 
 
 @router.post("/daily-data")

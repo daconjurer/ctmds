@@ -1,4 +1,4 @@
-from datetime import UTC, datetime
+import datetime
 
 from ctmds.core.db.session import get_session, init_db, teardown_db
 from ctmds.domain.entities import (
@@ -40,12 +40,20 @@ with next(get_session()) as db:
 
 # Add exchange rates
 with next(get_session()) as db:
-    rate_gbp_eur = ExchangeRate(
+    rate_gbp_eur1 = ExchangeRate(
         from_currency="GBP",
         to_currency="EUR",
         rate=1.19,
-        effective_date=datetime.now(UTC),
+        effective_date=datetime.datetime(2025, 2, 24, tzinfo=datetime.UTC),
     )
 
-    db.add(rate_gbp_eur)
+    rate_gbp_eur2 = ExchangeRate(
+        from_currency="GBP",
+        to_currency="EUR",
+        rate=1.17,
+        effective_date=datetime.datetime.now(datetime.UTC),
+    )
+
+    db.add(rate_gbp_eur1)
+    db.add(rate_gbp_eur2)
     db.commit()
