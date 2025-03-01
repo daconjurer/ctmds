@@ -31,9 +31,9 @@ async def get_exchange_rate(
     rate = cast(float, result.rate)
     return ExchangeRatePublic(
         from_currency=result.from_currency,
-                to_currency=result.to_currency,
-            rate=rate,
-            effective_date=result.effective_date,
+        to_currency=result.to_currency,
+        rate=rate,
+        effective_date=result.effective_date,
     )
 
 
