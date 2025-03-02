@@ -1,0 +1,15 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./ctmds:/app/ctmds  # Hot reload
+      - ./data:/app/data  # Database
+
+volumes:
+  ctmds:
+  data:
