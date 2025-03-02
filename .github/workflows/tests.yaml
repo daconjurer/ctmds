@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint-format-type:
-    name: Preliminary checks
+  functional-tests:
+    name: Functional tests
     runs-on: ubuntu-latest
     environment: demo
     steps:

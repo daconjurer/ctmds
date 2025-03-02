@@ -8,9 +8,10 @@ on:
     tags: [ "v*" ]
 
 jobs:
-  push_to_registry:
+  push-to-registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
+    environment: demo
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
