@@ -4,11 +4,12 @@ from typing import Type
 from ctmds.domain.constants import CountryCodes, Granularity, SupportedCommodities
 from ctmds.data_generators.raw_price import random_generator
 from ctmds.domain import exceptions
-from ctmds.domain.commodities.commodities_map import CommodityMap
-from ctmds.domain.commodities.generators_map import GeneratorMap
-from ctmds.domain.models.commodity.generic import GenericCommodity
-from ctmds.domain.models.price_generator.generic import GenericDailyPricesGenerator
+from ctmds.domain.commodity_price.commodities.commodities_map import CommodityMap
+from ctmds.domain.commodity_price.commodities.generators_map import GeneratorMap
+from ctmds.domain.commodity_price.models.commodity.generic import GenericCommodity
+from ctmds.domain.commodity_price.models.price_generator.generic import GenericDailyPricesGenerator
 import sys
+from ctmds.domain.commodity_price.daily_data import generate_daily_data
 
 from loguru import logger
 
@@ -47,17 +48,10 @@ def daily_prices(
 ):
     """Generate random daily prices for a specific country and date"""
     try:
-        commodity_class: Type[GenericCommodity] = CommodityMap.get_commodity_class(commodity)
-        base_price = float(commodity_class().get_base_price(country_code))
-
-        prices_generator: GenericDailyPricesGenerator = GeneratorMap.get_generator(
-            commodity,
-        )
-
-        prices = prices_generator.get_daily_prices(
-            date=for_date,
-            base_price=base_price,
+        _ = generate_daily_data(
+            for_date=for_date,
             country_code=country_code,
+            commodity=commodity,
             granularity=granularity,
             seed=seed,
         )

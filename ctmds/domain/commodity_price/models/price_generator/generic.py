@@ -2,12 +2,12 @@ from datetime import datetime
 from typing import Callable
 
 from ctmds.data_generators.daily_price import daily_prices_with_timestamps
-from ctmds.domain.constants import CountryCodes, Granularity
-from ctmds.domain.models.price import PriceCollection
-from ctmds.domain.models.price_generator.interface import (
+from ctmds.domain.commodity_price.models.price import PriceCollection
+from ctmds.domain.commodity_price.models.price_generator.interface import (
     DailyPricesGeneratorInterface,
     PriceGenerator,
 )
+from ctmds.domain.constants import CountryCodes, Granularity
 
 
 class GenericDailyPricesGenerator(DailyPricesGeneratorInterface):
