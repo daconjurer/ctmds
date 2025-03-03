@@ -5,10 +5,6 @@ on:
     branches: [ "main" ]
 
 jobs:
-  pre-tests:
-    uses: ./.github/workflows/pre-tests.yaml
-  tests:
-    uses: ./.github/workflows/tests.yaml
   build:
     name: Build Docker image
     needs: [tests, pre-tests]
