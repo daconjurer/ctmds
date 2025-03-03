@@ -1,5 +1,8 @@
 name: ci
 
+on:
+  push:
+
 jobs:
   pre-tests:
     uses: ./.github/workflows/pre-tests.yaml

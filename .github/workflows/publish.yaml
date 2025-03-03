@@ -8,7 +8,6 @@ on:
 jobs:
   publish:
     name: Push Docker image to Docker Hub
-    needs: [tests, pre-tests]
     runs-on: ubuntu-latest
     environment: demo
     steps:
