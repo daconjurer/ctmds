@@ -32,5 +32,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: $(git rev-parse --short "$GITHUB_SHA")
+          tags: $(git rev-parse --short HEAD)
           labels: ${{ steps.meta.outputs.labels }}
