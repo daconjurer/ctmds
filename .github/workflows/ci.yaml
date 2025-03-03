@@ -7,5 +7,6 @@ jobs:
     uses: ./.github/workflows/tests.yaml
   build:
     uses: ./.github/workflows/build.yaml
+    needs: [pre-tests, tests]
   publish:
     uses: ./.github/workflows/publish.yaml
