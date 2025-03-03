@@ -6,9 +6,9 @@ on:
 
 jobs:
   pre-tests:
-    uses: ./pre-tests.yml
+    uses: ./.github/workflows/pre-tests.yaml
   tests:
-    uses: ./tests.yml
+    uses: ./.github/workflows/tests.yaml
   build:
     name: Build Docker image
     needs: [tests, pre-tests]
