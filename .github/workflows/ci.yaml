@@ -1,15 +1,31 @@
-name: ci
+name: CI
 
 on:
   push:
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   pre-tests:
     uses: ./.github/workflows/pre-tests.yaml
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   tests:
     uses: ./.github/workflows/tests.yaml
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   build:
     uses: ./.github/workflows/build.yaml
     needs: [pre-tests, tests]
+    if: github.event_name == 'pull_request' && github.event.action == 'open'
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   publish:
     uses: ./.github/workflows/publish.yaml
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
