@@ -25,15 +25,8 @@ RUN pip install poetry==${POETRY_VERSION} && \
 
 ENV PATH="/app/.venv/bin:$PATH"
 
-# Development stage
-FROM builder as dev
-
-CMD ["python3", "-m", "ctmds.main"]
-
-# Production stage
 FROM builder as api
 
 VOLUME /app/data
 
-COPY .env ./
 CMD ["python3", "-m", "ctmds.main"]
