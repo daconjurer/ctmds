@@ -19,7 +19,7 @@ jobs:
   build:
     uses: ./.github/workflows/build.yaml
     needs: [pre-tests, tests]
-    if: github.event_name == 'pull_request' && github.event.action == 'open'
+    if: github.event_name == 'pull_request'
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
