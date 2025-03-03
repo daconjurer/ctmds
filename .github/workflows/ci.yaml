@@ -17,15 +17,15 @@ jobs:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   build:
-    uses: ./.github/workflows/build.yaml
     needs: [pre-tests, tests]
     if: github.event_name == 'pull_request'
+    uses: ./.github/workflows/build.yaml
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   publish:
-    uses: ./.github/workflows/publish.yaml
     if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    uses: ./.github/workflows/publish.yaml
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}

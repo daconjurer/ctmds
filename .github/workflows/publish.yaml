@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: demo
     steps:
-      - name: Check out the repo
+      - name: Check out code
         uses: actions/checkout@v4
 
       - name: Log in to Docker Hub
