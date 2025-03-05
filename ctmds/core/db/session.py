@@ -16,7 +16,7 @@ class SessionStream(Protocol):
 
 # Create SQLite engine
 engine = create_engine(
-    "sqlite:///ctmds.db",
+    "sqlite:///data/ctmds.db",
     echo=False,
 )
 
