@@ -3,10 +3,10 @@ from typing import Callable
 
 from pytz import country_timezones
 
-from ctmds.data_generators.raw_price import normal_distribution_generator
-from ctmds.data_generators.utils.date import TimezoneAwareDate
 from ctmds.domain.commodity_price.models.price import Price, PriceCollection
 from ctmds.domain.constants import CountryCodes, Granularity
+from ctmds.domain.data_generators.raw_price import normal_distribution_generator
+from ctmds.domain.data_generators.utils.date import TimezoneAwareDate
 
 
 def format_time(

@@ -2,8 +2,8 @@ from datetime import datetime
 
 import pytest
 
-from ctmds.data_generators.daily_price import daily_prices_with_timestamps
 from ctmds.domain.constants import CountryCodes, Granularity
+from ctmds.domain.data_generators.daily_price import daily_prices_with_timestamps
 
 
 def test_daily_prices_with_timestamps_hourly():

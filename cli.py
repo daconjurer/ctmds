@@ -2,7 +2,7 @@ import typer
 from datetime import datetime
 from typing import Type
 from ctmds.domain.constants import CountryCodes, Granularity, SupportedCommodities
-from ctmds.data_generators.raw_price import random_generator
+from ctmds.domain.data_generators.raw_price import random_generator
 from ctmds.domain import exceptions
 from ctmds.domain.commodity_price.commodities.commodities_map import CommodityMap
 from ctmds.domain.commodity_price.commodities.generators_map import GeneratorMap
