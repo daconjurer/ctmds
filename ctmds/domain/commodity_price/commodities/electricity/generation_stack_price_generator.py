@@ -1,16 +1,9 @@
 from datetime import datetime
-from typing import List, Sequence
+from typing import Callable, List, Sequence
 
 import numpy as np
 
 from ctmds.domain.commodity_price.commodities.electricity.generation.generators import (
-    GasElectricityGenerator,
-    NuclearElectricityGenerator,
-    PeakElectricityGenerator,
-    SolarElectricityGenerator,
-    WindElectricityGenerator,
-)
-from ctmds.domain.commodity_price.commodities.electricity.generation.generic import (
     GenericElectricityGenerator,
 )
 
@@ -140,6 +133,8 @@ def generate_demand_profile(
 
 def power_price_generator(
     periods: int,
+    stack: GenerationStack,
+    demand_profile: Callable,  # TODO: Type interface
     date: datetime,
     seed: int | None = None,
 ) -> List[float]:
@@ -154,19 +149,9 @@ def power_price_generator(
     Returns:
         List of prices in currency/MWh
     """
-    # Create generation stack with default generators
-    stack = GenerationStack(
-        [
-            SolarElectricityGenerator(),
-            WindElectricityGenerator(),
-            NuclearElectricityGenerator(),
-            GasElectricityGenerator(),
-            PeakElectricityGenerator(),
-        ]
-    )
 
     # Generate demand profile
-    demands = generate_demand_profile(periods, date, seed=seed)
+    demands = demand_profile(periods, date, seed=seed)
 
     # Calculate prices based on demand
     prices = [stack.get_price_for_demand(demand) for demand in demands]
