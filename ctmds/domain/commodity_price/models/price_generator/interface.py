@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Protocol
+from typing import Protocol
 
 from ctmds.domain.commodity_price.models.price import PriceCollection
 from ctmds.domain.constants import CountryCodes, Granularity
@@ -11,10 +11,8 @@ class IDailyPricesGenerator(Protocol):
     def get_daily_prices(
         self,
         date: datetime,
-        base_price: float,
         country_code: CountryCodes,
         granularity: Granularity,
-        seed: int | None = None,
     ) -> PriceCollection:
         """Generate daily prices for a given date and country code."""
         ...
@@ -25,12 +23,9 @@ class IPricesGenerator(Protocol):
 
     def __call__(
         self,
-        base_price: float,
         periods: int,
         date: datetime,
-        seed: int | None = None,
-        volatility: float = ...,  # Default value varies by generator
-    ) -> List[float]:
+    ) -> list[float]:
         """
         Generate prices for a commodity.
 

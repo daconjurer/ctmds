@@ -1,6 +1,9 @@
-from ctmds.domain.commodity_price.commodities.electricity.generation.generic import (
-    GenericElectricityGenerator,
-)
+from pydantic import BaseModel
+
+
+class GenericElectricityGenerator(BaseModel):
+    marginal_cost: float  # in GBP/MWh
+    capacity: float  # in GW
 
 
 class SolarElectricityGenerator(GenericElectricityGenerator):

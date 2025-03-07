@@ -68,7 +68,7 @@ def daily_prices_with_timestamps(
 def daily_timestamps(
     date: datetime,
     country_code: CountryCodes,
-    granularity: Granularity = Granularity.HOURLY,
+    granularity: Granularity = Granularity.HALF_HOURLY,
 ) -> list[str]:
     """
     Generate timestamps for a specific country and date.
