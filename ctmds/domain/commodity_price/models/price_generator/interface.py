@@ -5,7 +5,7 @@ from ctmds.domain.commodity_price.models.price import PriceCollection
 from ctmds.domain.constants import CountryCodes, Granularity
 
 
-class DailyPricesGeneratorInterface(Protocol):
+class IDailyPricesGenerator(Protocol):
     """Protocol defining the interface for daily prices generators."""
 
     def get_daily_prices(
@@ -20,7 +20,7 @@ class DailyPricesGeneratorInterface(Protocol):
         ...
 
 
-class PriceGenerator(Protocol):
+class IPricesGenerator(Protocol):
     """Protocol for price generator functions."""
 
     def __call__(

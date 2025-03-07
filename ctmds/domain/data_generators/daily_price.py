@@ -63,3 +63,36 @@ def daily_prices_with_timestamps(
         prices_with_timestamps.append(Price(price=price, timestamp=time_str))
 
     return PriceCollection(prices=prices_with_timestamps)
+
+
+def daily_timestamps(
+    date: datetime,
+    country_code: CountryCodes,
+    granularity: Granularity = Granularity.HOURLY,
+) -> list[str]:
+    """
+    Generate timestamps for a specific country and date.
+
+    Handles DST transitions:
+    - Short days (23 hours) during spring forward
+    - Long days (25 hours) during fall back
+    - Normal days (24 hours)
+
+    Args:
+        date: The date to generate prices for
+        country_code: The country code (GB, FR, NL, DE)
+        granularity: Time granularity (hourly or half-hourly)
+
+    Returns:
+        List of timestamps
+    """
+
+    timezone = country_timezones[country_code.value][0]
+    day_hours = TimezoneAwareDate(date, timezone).get_day_hours()
+
+    # Calculate number of periods based on actual hours and granularity
+    num_hours = day_hours
+    periods = num_hours * 2 if granularity == Granularity.HALF_HOURLY else num_hours
+
+    timestamps = list(map(lambda i: format_time(i, granularity), range(periods)))
+    return timestamps

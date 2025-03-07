@@ -4,7 +4,7 @@ from ctmds.core.data_access.reader import GenericReader
 from ctmds.core.db.session import SessionStream, get_session
 from ctmds.core.utils.filter_sort import BaseFilterParams
 from ctmds.domain import exceptions
-from ctmds.domain.commodity_price.models.commodity.interface import CommodityInterface
+from ctmds.domain.commodity_price.models.commodity.interface import ICommodity
 from ctmds.domain.constants import CountryCodes
 from ctmds.domain.entities import CommodityConfig
 
@@ -13,8 +13,8 @@ class GenericCommodityFilterParams(BaseFilterParams):
     country_code: CountryCodes
 
 
-class GenericCommodity(CommodityInterface):
-    """Implementation of CommodityInterface for generic commodity."""
+class GenericCommodity(ICommodity):
+    """Implementation of ICommodity for generic commodity."""
 
     reader: GenericReader[CommodityConfig]
 

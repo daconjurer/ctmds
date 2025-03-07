@@ -10,6 +10,6 @@ class NaturalGasConfigReader(GenericReader[NaturalGasConfig]):
 
 
 class NaturalGas(GenericCommodity):
-    """Implementation of CommodityInterface for natural gas."""
+    """Implementation of ICommodity for natural gas."""
 
     reader = NaturalGasConfigReader()

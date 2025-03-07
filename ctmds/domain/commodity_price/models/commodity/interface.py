@@ -3,7 +3,7 @@ from typing import Protocol
 from ctmds.domain.constants import CountryCodes
 
 
-class CommodityInterface(Protocol):
+class ICommodity(Protocol):
     """Protocol defining the interface for commodities."""
 
     def get_base_price(

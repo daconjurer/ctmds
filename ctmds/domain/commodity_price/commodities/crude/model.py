@@ -10,6 +10,6 @@ class CrudeOilConfigReader(GenericReader[CrudeOilConfig]):
 
 
 class CrudeOil(GenericCommodity):
-    """Implementation of CommodityInterface for crude oil."""
+    """Implementation of ICommodity for crude oil."""
 
     reader = CrudeOilConfigReader()

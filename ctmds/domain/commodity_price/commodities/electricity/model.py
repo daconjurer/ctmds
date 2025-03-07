@@ -10,6 +10,6 @@ class ElectricityConfigReader(GenericReader[ElectricityConfig]):
 
 
 class Electricity(GenericCommodity):
-    """Implementation of CommodityInterface for electricity."""
+    """Implementation of ICommodity for electricity."""
 
     reader = ElectricityConfigReader()
