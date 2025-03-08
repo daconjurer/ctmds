@@ -1,5 +1,3 @@
-from typing import Protocol
-
 from ctmds.domain.commodity_price.commodities.crude.price_generator import (
     CrudePriceGenerator,
 )
@@ -10,17 +8,9 @@ from ctmds.domain.commodity_price.commodities.natural_gas.price_generator import
     GasPriceGenerator,
 )
 from ctmds.domain.commodity_price.models.price_generator.generic import (
-    GenericDailyPricesGenerator,
+    ICreateDailyPricesGenerator,
 )
 from ctmds.domain.constants import CountryCodes, SupportedCommodities
-
-
-class ICreateDailyPricesGenerator(Protocol):
-    """Protocol for creating daily prices generators."""
-
-    def __call__(self) -> GenericDailyPricesGenerator:
-        """Create a daily prices generator."""
-        ...
 
 
 class GeneratorMap:

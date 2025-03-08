@@ -7,6 +7,7 @@ from ctmds.domain.commodity_price.commodities.crude.price_generators.basic impor
 from ctmds.domain.commodity_price.models.commodity.generic import GenericCommodity
 from ctmds.domain.commodity_price.models.price_generator.generic import (
     GenericDailyPricesGenerator,
+    ICreateDailyPricesGenerator,
 )
 from ctmds.domain.constants import CountryCodes
 from ctmds.domain.data_generators.daily_timestamps import (
@@ -15,7 +16,7 @@ from ctmds.domain.data_generators.daily_timestamps import (
 )
 
 
-class CrudePriceGenerator:
+class CrudePriceGenerator(ICreateDailyPricesGenerator):
     """Daily prices generator for electricity."""
 
     commodity: GenericCommodity = CrudeOil()

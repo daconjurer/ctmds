@@ -1,11 +1,12 @@
 from datetime import datetime
+from typing import Protocol
 
 from ctmds.domain.commodity_price.models.price import Price, PriceCollection
 from ctmds.domain.commodity_price.models.price_generator.interface import (
     IDailyPricesGenerator,
     IPricesGenerator,
 )
-from ctmds.domain.constants import CountryCodes, Granularity
+from ctmds.domain.constants import CountryCodes
 from ctmds.domain.data_generators.daily_timestamps import daily_timestamps
 
 
@@ -19,7 +20,6 @@ class GenericDailyPricesGenerator(IDailyPricesGenerator):
         self,
         date: datetime,
         country_code: CountryCodes,
-        granularity: Granularity = Granularity.HALF_HOURLY,
     ) -> PriceCollection:
         """Get daily generic commodity prices."""
 
@@ -36,3 +36,11 @@ class GenericDailyPricesGenerator(IDailyPricesGenerator):
         return PriceCollection(
             prices=prices_with_timestamps,
         )
+
+
+class ICreateDailyPricesGenerator(Protocol):
+    """Protocol for creating daily prices generators."""
+
+    def __call__(self) -> GenericDailyPricesGenerator:
+        """Create a daily prices generator."""
+        ...

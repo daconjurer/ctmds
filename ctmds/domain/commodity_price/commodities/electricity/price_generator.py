@@ -5,11 +5,12 @@ from ctmds.domain.commodity_price.commodities.electricity.price_generators.basic
 )
 from ctmds.domain.commodity_price.models.price_generator.generic import (
     GenericDailyPricesGenerator,
+    ICreateDailyPricesGenerator,
 )
 from ctmds.domain.constants import CountryCodes
 
 
-class ElectricityPriceGenerator:
+class ElectricityPriceGenerator(ICreateDailyPricesGenerator):
     """Daily prices generator for electricity."""
 
     def __init__(self, country_code: CountryCodes):
