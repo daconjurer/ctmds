@@ -37,9 +37,6 @@ def daily_prices(
         default=Granularity.HOURLY,
         help="Time granularity (h: hourly, hh: half-hourly)",
     ),
-    seed: int | None = typer.Option(
-        default=None, metavar="--seed", help="Random seed for reproducibility"
-    ),
 ):
     """Generate random daily prices for a specific country and date"""
     try:
@@ -48,7 +45,6 @@ def daily_prices(
             country_code=country_code,
             commodity=commodity,
             granularity=granularity,
-            seed=seed,
         ).generate()
 
         # print(prices)
