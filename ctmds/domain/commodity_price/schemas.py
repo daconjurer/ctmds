@@ -10,4 +10,3 @@ class DailyDataRequest(BaseModel):
     country_code: CountryCodes
     commodity: SupportedCommodities
     granularity: Granularity
-    seed: int | None = None
