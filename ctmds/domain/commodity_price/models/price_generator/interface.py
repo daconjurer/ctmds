@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Protocol
 
 from ctmds.domain.commodity_price.models.price import PriceCollection
-from ctmds.domain.constants import CountryCodes, Granularity
+from ctmds.domain.constants import CountryCodes
 
 
 class IDailyPricesGenerator(Protocol):
@@ -12,7 +12,6 @@ class IDailyPricesGenerator(Protocol):
         self,
         date: datetime,
         country_code: CountryCodes,
-        granularity: Granularity,
     ) -> PriceCollection:
         """Generate daily prices for a given date and country code."""
         ...

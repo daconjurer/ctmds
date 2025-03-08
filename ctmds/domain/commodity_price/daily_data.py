@@ -20,16 +20,44 @@ class DailyData:
         self.granularity = granularity
         self.seed = seed
 
+    def _get_existing_data(self) -> PriceCollection | None:
+        """Get existing data from the DB."""
+        ...
+
+    def _resample_prices(
+        self,
+        prices_collection: PriceCollection,
+        granularity: Granularity,
+    ) -> PriceCollection:
+        """Resample prices to the specified granularity."""
+        if granularity == Granularity.HALF_HOURLY:
+            return prices_collection
+
+        resampled_prices = prices_collection.prices[::2]
+        return PriceCollection(prices=resampled_prices)
+
     def generate(self) -> PriceCollection:
-        prices_generator = GeneratorMap.get_generator(
-            self.commodity,
-            self.country_code,
-        )
+        """Generate daily prices for a commodity."""
 
-        prices = prices_generator().get_daily_prices(
-            date=self.for_date,
-            country_code=self.country_code,
-            granularity=self.granularity,
-        )
+        # TODO: Hit the DB to check if the data already exists
+        prices_collection = self._get_existing_data()
 
-        return prices
+        # If it does not exist, generate new data
+        if not prices_collection:
+            prices_generator = GeneratorMap.get_generator(
+                self.commodity,
+                self.country_code,
+            )
+
+            prices_collection = prices_generator().get_daily_prices(
+                date=self.for_date,
+                country_code=self.country_code,
+            )
+
+            # And save it to the DB
+            ...
+
+        # Finally, return it with the specified granularity
+        final_prices = self._resample_prices(prices_collection, self.granularity)
+
+        return final_prices
