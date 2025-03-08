@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from ctmds.core.utils.filter_sort import BaseFilterParams, SortParams
 
-Entity = TypeVar("Entity", covariant=True)
+Entity = TypeVar("Entity")
 
 
 class IRead(Protocol[Entity]):
