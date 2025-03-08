@@ -45,7 +45,6 @@ async def generate_daily_data(
             country_code=body.country_code,
             commodity=body.commodity,
             granularity=body.granularity,
-            seed=body.seed,
         ).generate()
     except exceptions.CoreException as e:
         raise HTTPException(status_code=400, detail=str(e))
