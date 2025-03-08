@@ -29,6 +29,9 @@ class GenerationStack:
         Returns:
             Marginal price in currency/MWh
         """
+
+        # TODO: Adjust the price according to the input/current/forecasted demand
+
         if demand <= 0:
             return 0.0
 

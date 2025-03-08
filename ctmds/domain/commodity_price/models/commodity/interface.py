@@ -1,15 +1,17 @@
+from decimal import Decimal
 from typing import Protocol
 
-from ctmds.domain.constants import CountryCodes
+from ctmds.domain.constants import CountryCodes, TimePeriod
 
 
 class ICommodity(Protocol):
     """Protocol defining the interface for commodities."""
 
-    def get_base_price(
+    def get_price(
         self,
         country_code: CountryCodes,
-    ) -> float:
+        period: TimePeriod,
+    ) -> Decimal:
         """Get base price for the commodity in a country."""
         ...
 

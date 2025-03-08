@@ -4,6 +4,12 @@ from pydantic import BaseModel
 class GenericElectricityGenerator(BaseModel):
     marginal_cost: float  # in GBP/MWh
     capacity: float  # in GW
+    # TODO: Add all the ones below
+    # efficiency=0.5,
+    # capacity_factor=0.5,
+    # variable_costs=0.1,
+    # fixed_costs=0.1,
+    # start_up_costs=0.1,
 
 
 class SolarElectricityGenerator(GenericElectricityGenerator):

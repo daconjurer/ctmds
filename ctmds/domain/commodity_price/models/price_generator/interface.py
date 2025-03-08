@@ -23,7 +23,6 @@ class IPricesGenerator(Protocol):
 
     def __call__(
         self,
-        periods: int,
         date: datetime,
     ) -> list[float]:
         """
@@ -31,7 +30,6 @@ class IPricesGenerator(Protocol):
 
         Args:
             base_price: Base price for the commodity
-            periods: Number of periods to generate prices for
             date: The date to generate prices for
             seed: Optional random seed for reproducibility
             volatility: Base volatility level (defaults vary by commodity)

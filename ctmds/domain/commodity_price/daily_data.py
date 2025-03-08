@@ -21,11 +21,15 @@ class DailyData:
         self.seed = seed
 
     def generate(self) -> PriceCollection:
-        prices_generator = GeneratorMap.get_generator(self.commodity)
+        prices_generator = GeneratorMap.get_generator(
+            self.commodity,
+            self.country_code,
+        )
 
         prices = prices_generator().get_daily_prices(
             date=self.for_date,
             country_code=self.country_code,
+            granularity=self.granularity,
         )
 
         return prices

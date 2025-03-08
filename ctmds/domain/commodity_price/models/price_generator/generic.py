@@ -6,7 +6,7 @@ from ctmds.domain.commodity_price.models.price_generator.interface import (
     IPricesGenerator,
 )
 from ctmds.domain.constants import CountryCodes, Granularity
-from ctmds.domain.data_generators.daily_price import daily_timestamps
+from ctmds.domain.data_generators.daily_timestamps import daily_timestamps
 
 
 class GenericDailyPricesGenerator(IDailyPricesGenerator):
@@ -26,7 +26,7 @@ class GenericDailyPricesGenerator(IDailyPricesGenerator):
         # First get timestamps
         timestamps = daily_timestamps(date, country_code)
         # From the number of timestamps we get periods, and from those + date we get prices
-        prices = self.prices_generator(periods=len(timestamps), date=date)
+        prices = self.prices_generator(date=date)
 
         prices_with_timestamps = [
             Price(price=price, timestamp=timestamp)
