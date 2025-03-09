@@ -27,7 +27,7 @@ class GenericCommodity(ICommodity):
         country_code: CountryCodes,
         period: TimePeriod,
     ) -> Decimal:
-        """Get base price for generic commodity in a country, if valid."""
+        """Get current price for generic commodity in a country, if valid."""
 
         # TODO: Get price for "period" from database table with daily prices
 

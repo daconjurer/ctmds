@@ -28,10 +28,7 @@ class IPricesGenerator(Protocol):
         Generate prices for a commodity.
 
         Args:
-            base_price: Base price for the commodity
             date: The date to generate prices for
-            seed: Optional random seed for reproducibility
-            volatility: Base volatility level (defaults vary by commodity)
 
         Returns:
             List of generated prices

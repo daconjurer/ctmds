@@ -12,7 +12,7 @@ class ICommodity(Protocol):
         country_code: CountryCodes,
         period: TimePeriod,
     ) -> Decimal:
-        """Get base price for the commodity in a country."""
+        """Get current price for the commodity in a country."""
         ...
 
     def get_supported_countries(self) -> list[CountryCodes]:
