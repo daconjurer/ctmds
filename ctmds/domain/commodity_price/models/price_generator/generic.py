@@ -1,38 +1,46 @@
 from datetime import datetime
-from typing import Callable
+from typing import Protocol
 
-from ctmds.data_generators.daily_price import daily_prices_with_timestamps
-from ctmds.domain.commodity_price.models.price import PriceCollection
+from ctmds.domain.commodity_price.models.price import Price, PriceCollection
 from ctmds.domain.commodity_price.models.price_generator.interface import (
-    DailyPricesGeneratorInterface,
-    PriceGenerator,
+    IDailyPricesGenerator,
+    IPricesGenerator,
 )
-from ctmds.domain.constants import CountryCodes, Granularity
+from ctmds.domain.constants import CountryCodes
+from ctmds.domain.data_generators.daily_timestamps import daily_timestamps
 
 
-class GenericDailyPricesGenerator(DailyPricesGeneratorInterface):
+class GenericDailyPricesGenerator(IDailyPricesGenerator):
     """Generic daily prices generator."""
 
-    def __init__(self, prices_generator: PriceGenerator):
-        self.prices_generator: PriceGenerator = prices_generator
-        self.daily_prices_with_timestamps_generator: Callable = (
-            daily_prices_with_timestamps
-        )
+    def __init__(self, prices_generator: IPricesGenerator):
+        self.prices_generator: IPricesGenerator = prices_generator
 
     def get_daily_prices(
         self,
         date: datetime,
-        base_price: float,
         country_code: CountryCodes,
-        granularity: Granularity,
-        seed: int | None = None,
     ) -> PriceCollection:
         """Get daily generic commodity prices."""
-        return self.daily_prices_with_timestamps_generator(
-            date=date,
-            base_price=base_price,
-            country_code=country_code,
-            granularity=granularity,
-            seed=seed,
-            daily_prices_generator=self.prices_generator,
+
+        # First get timestamps
+        timestamps = daily_timestamps(date, country_code)
+        # From the number of timestamps we get periods, and from those + date we get prices
+        prices = self.prices_generator(date=date)
+
+        prices_with_timestamps = [
+            Price(price=price, timestamp=timestamp)
+            for price, timestamp in zip(prices, timestamps)
+        ]
+
+        return PriceCollection(
+            prices=prices_with_timestamps,
         )
+
+
+class ICreateDailyPricesGenerator(Protocol):
+    """Protocol for creating daily prices generators."""
+
+    def __call__(self) -> GenericDailyPricesGenerator:
+        """Create a daily prices generator."""
+        ...
