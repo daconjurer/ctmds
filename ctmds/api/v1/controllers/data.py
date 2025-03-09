@@ -4,9 +4,7 @@ from fastapi import APIRouter, Body, Depends, HTTPException
 
 from ctmds.core.utils.filter_sort import SortParams
 from ctmds.domain import exceptions
-from ctmds.domain.commodity_price.daily_data import (
-    generate_daily_data as commodity_daily_data,
-)
+from ctmds.domain.commodity_price.daily_data import DailyData
 from ctmds.domain.commodity_price.models.price import PriceCollection
 from ctmds.domain.commodity_price.schemas import DailyDataRequest
 from ctmds.domain.exchange_rate.reader import ExchangeRateFilterParams
@@ -42,13 +40,12 @@ async def generate_daily_data(
     body: Annotated[DailyDataRequest, Body()],
 ) -> PriceCollection:
     try:
-        prices = commodity_daily_data(
+        prices = DailyData(
             for_date=body.for_date,
             country_code=body.country_code,
             commodity=body.commodity,
             granularity=body.granularity,
-            seed=body.seed,
-        )
+        ).generate()
     except exceptions.CoreException as e:
         raise HTTPException(status_code=400, detail=str(e))
 

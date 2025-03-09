@@ -1,6 +1,6 @@
 import numpy as np
 
-from ctmds.data_generators.raw_price import (
+from ctmds.domain.data_generators.raw_price import (
     normal_distribution_generator,
     random_generator,
     random_iterator,

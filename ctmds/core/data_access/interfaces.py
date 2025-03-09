@@ -3,9 +3,9 @@ from typing import Protocol, TypeVar
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from ctmds.core.utils.filter_sort import BaseFilterParams
+from ctmds.core.utils.filter_sort import BaseFilterParams, SortParams
 
-Entity = TypeVar("Entity", covariant=True)
+Entity = TypeVar("Entity")
 
 
 class IRead(Protocol[Entity]):
@@ -17,6 +17,17 @@ class IRead(Protocol[Entity]):
         filter: BaseFilterParams,
     ) -> Entity | None:
         """Get an entity using a key-value filter."""
+        ...
+
+    def get_many(
+        self,
+        db: Session,
+        filter: BaseFilterParams | None = None,
+        sort: SortParams | None = None,
+        limit: int | None = 5,
+        page: int | None = 1,
+    ) -> list[Entity]:
+        """Get multiple entities using a filter, sort, limit, and page."""
         ...
 
 
