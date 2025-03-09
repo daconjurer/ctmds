@@ -37,9 +37,10 @@ class PeakElectricityGenerator(GenericElectricityGenerator):
     capacity: float = 5.0  # in GW
 
 
-# class CoalElectricityGenerator(GenericElectricityGenerator):
-#     capacity: float = 14.5  # in GW
-#     marginal_cost: float = 65.3  # in GBP/MWh
+class CoalElectricityGenerator(GenericElectricityGenerator):
+    capacity: float = 14.5  # in GW
+    marginal_cost: float = 65.3  # in GBP/MWh
+
 
 # class HydroElectricityGenerator(GenericElectricityGenerator):
 #     capacity: float = 14.5  # in GW
