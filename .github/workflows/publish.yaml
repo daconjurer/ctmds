@@ -28,6 +28,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: dockerpaps/ctmds
+          tags: |
+            type=sha,prefix=prod-,format=short
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -35,5 +37,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: $(git rev-parse --short HEAD)
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
