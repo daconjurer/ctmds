@@ -19,7 +19,7 @@ And the following countries:
 - Germany (DE)
 - France (FR)
 
-To see more on the domain modelling, check out the [Domain modelling section](./docs/dm/home.md)
+The prices simulation works as follows:
 
 - [Ppwer price simulation based on the generation stack](./docs/dm/power.md) for Power (electricity).
 - Natural gas price simulation mostly based on seasonal and time factors (improvements coming soon...)
