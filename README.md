@@ -21,7 +21,9 @@ And the following countries:
 
 To see more on the domain modelling, check out the [Domain modelling section](./docs/dm/home.md)
 
-- [Price simulation based on the generation stack](./docs/dm/power.md) for Power (electricity).
+- [Ppwer price simulation based on the generation stack](./docs/dm/power.md) for Power (electricity).
+- Natural gas price simulation mostly based on seasonal and time factors (improvements coming soon...)
+- Crude oil price simulation on seasonal and time factors (improvements coming soon...)
 
 The package uses [Poetry 2](https://python-poetry.org/). To install it, run `poetry install`.
 
